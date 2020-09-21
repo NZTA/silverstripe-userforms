@@ -247,11 +247,20 @@ JS
             $submittedField->Title = $field->getField('Title');
 
             // save the value from the data
+            /* Patch:  NZ date format for datepicker field */
             if ($field->hasMethod('getValueFromData')) {
-                $submittedField->Value = $field->getValueFromData($data);
+                if($field->ClassName == 'SilverStripe\UserForms\Model\EditableFormField\EditableDateField'){
+                    $submittedField->Value = $this->nzDatedFormat($field->getValueFromData($data));
+                } else {
+                    $submittedField->Value = $field->getValueFromData($data);
+                }
             } else {
                 if (isset($data[$field->Name])) {
-                    $submittedField->Value = $data[$field->Name];
+                    if($field->ClassName == 'SilverStripe\UserForms\Model\EditableFormField\EditableDateField'){                        
+                        $submittedField->Value = $this->nzDatedFormat($data[$field->Name]);
+                    } else {
+                        $submittedField->Value = $data[$field->Name];
+                    }            
                 }
             }
 
@@ -288,7 +297,8 @@ JS
                         $submittedField->UploadedFileID = $file->ID;
 
                         // attach a file only if lower than 1MB
-                        if ($file->getAbsoluteSize() < 1024 * 1024 * 1) {
+                        // Increase to file size to 5MB
+                         if ($file->getAbsoluteSize() < 1024 * 1024 * 5) {
                             $attachments[] = $file;
                         }
                     }
@@ -480,6 +490,11 @@ JS
         }
 
         return $data;
+    }
+
+    public function nzDatedFormat($unformatedDate) {
+        $date = strtotime($unformatedDate); 
+        return date('d-m-Y', $date);
     }
 
     /**
