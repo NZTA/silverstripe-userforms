@@ -272,7 +272,7 @@ JS
                         $submittedField->UploadedFileID = $file->ID;
 
                         // attach a file only if lower than 1MB
-                        if ($file->getAbsoluteSize() < 1024 * 1024 * 1) {
+                        if ($file->getAbsoluteSize() < 1024 * 1024 * 5) {
                             $attachments[] = $file;
                         }
                     }
