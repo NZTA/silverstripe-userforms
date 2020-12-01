@@ -472,8 +472,13 @@ JS
     }
 
     public function nzDatedFormat($unformatedDate) {
-        $date = strtotime($unformatedDate); 
-        return date('d-m-Y', $date);
+        $date = '';
+
+        if($unformatedDate){
+            $date = strtotime($unformatedDate); 
+        }
+        
+        return $date;
     }
 
     /**
