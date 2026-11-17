@@ -1,5 +1,12 @@
 # UserForms
 
+> [!CAUTION]
+> This fork was created to work around project-level issues with attachment file size and date formatting.
+> - Recipient attachment file size limit has been settable via config since userforms 5.14
+> - Date formatting should be dealt with at a project level, e.g. by extending `DBDate` to convert formats on output/string conversion.
+>
+> This repository will be deleted in the near future. **Do not use this fork** - switch to [upstream](https://github.com/silverstripe/silverstripe-userforms) and adapt any projects before this happens.
+
 UserForms enables CMS users to create dynamic forms via a drag and drop interface
 and without getting involved in any PHP code.
 
